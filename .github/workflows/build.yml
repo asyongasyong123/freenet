@@ -26,4 +26,4 @@ jobs:
           context: .
           push: true
           tags: docker.io/pantasyongbayan/freenet:latest
-          
+          platforms: linux/amd64
