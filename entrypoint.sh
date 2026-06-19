@@ -1,5 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 set -e
-sed -i "s/listen 8080;/listen ${PORT};/g" /etc/nginx/nginx.conf
+
+echo "✅ Starting Xray..."
 xray run -c /etc/xray/config.json &
-nginx -g 'daemon off;'
+
+sleep 6
+
+echo "✅ Starting Nginx..."
+nginx -g "daemon off;"
