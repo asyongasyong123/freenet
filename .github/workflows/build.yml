@@ -16,5 +16,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker.io/pantasyongbayan/trojan:latest
+          tags: docker.io/pantasyongbayan/freenet:latest
           platforms: linux/amd64
