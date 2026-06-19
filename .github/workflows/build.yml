@@ -20,12 +20,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME2 }}
           password: ${{ secrets.DOCKER_PASSWORD2 }}
 
-      - name: Build and push
+      - name: Build & Push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: pantasyongbayan/freenet:latest
           platforms: linux/amd64
-          cache-from: type=registry,ref=pantasyongbayan/freenet:cache
-          cache-to: type=registry,ref=pantasyongbayan/freenet:cache,mode=max
