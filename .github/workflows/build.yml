@@ -25,5 +25,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker.io/pantasyongbayan/freenet:latest
+          tags: pantasyongbayan/freenet:latest
           platforms: linux/amd64
+          cache-from: type=registry,ref=pantasyongbayan/freenet:cache
+          cache-to: type=registry,ref=pantasyongbayan/freenet:cache,mode=max
