@@ -1,38 +1,105 @@
 {
-  "log": {"loglevel": "warning"},
+  "log": {"loglevel": "info"},
+  "dns": {
+    "servers": ["8.8.8.8", "8.8.4.4"],
+    "clientIp": "8.8.8.8",
+    "domainStrategy": "UseIPv4",
+    "disableFallback": false
+  },
   "inbounds": [
     {
       "port": 10001,
       "listen": "0.0.0.0",
       "protocol": "trojan",
       "settings": {"clients": [{"password": "freenet", "level": 0}]},
-      "sniffing": {"enabled": true, "destOverride": ["http", "tls"]},
-      "streamSettings": {"network": "ws", "wsSettings": {"path": "/trojan-freenet?ed=2560"}, "sockopt": {"tcpKeepAlive": true, "tcpKeepAliveIdle": 30, "tcpKeepAliveInterval": 15, "tcpKeepAliveProbes": 5}}
+      "sniffing": {"enabled": true, "destOverride": ["http", "tls", "quic"], "routeOnly": true},
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {"path": "/trojan-freenet?ed=2560"},
+        "sockopt": {
+          "tcpKeepAlive": true,
+          "tcpKeepAliveIdle": 60,
+          "tcpKeepAliveInterval": 15,
+          "tcpKeepAliveProbes": 5,
+          "TCPFastOpen": true,
+          "TCPNoDelay": true
+        }
+      }
     },
     {
       "port": 10002,
       "listen": "0.0.0.0",
       "protocol": "vless",
       "settings": {"clients": [{"id": "a1b2c3d4-5678-40ef-98ab-cdef01234567", "level": 0}], "decryption": "none"},
-      "sniffing": {"enabled": true, "destOverride": ["http", "tls"]},
-      "streamSettings": {"network": "ws", "wsSettings": {"path": "/vless-freenet?ed=2560"}, "sockopt": {"tcpKeepAlive": true, "tcpKeepAliveIdle": 30, "tcpKeepAliveInterval": 15, "tcpKeepAliveProbes": 5}}
+      "sniffing": {"enabled": true, "destOverride": ["http", "tls", "quic"], "routeOnly": true},
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {"path": "/vless-freenet?ed=2560"},
+        "sockopt": {
+          "tcpKeepAlive": true,
+          "tcpKeepAliveIdle": 60,
+          "tcpKeepAliveInterval": 15,
+          "tcpKeepAliveProbes": 5,
+          "TCPFastOpen": true,
+          "TCPNoDelay": true
+        }
+      }
     },
     {
       "port": 10003,
       "listen": "0.0.0.0",
       "protocol": "shadowsocks",
       "settings": {"method": "chacha20-ietf-poly1305", "password": "freenet", "network": "tcp,udp"},
-      "sniffing": {"enabled": true, "destOverride": ["http", "tls"]},
-      "streamSettings": {"network": "ws", "wsSettings": {"path": "/ss-freenet?ed=2560"}, "sockopt": {"tcpKeepAlive": true, "tcpKeepAliveIdle": 30, "tcpKeepAliveInterval": 15, "tcpKeepAliveProbes": 5}}
+      "sniffing": {"enabled": true, "destOverride": ["http", "tls", "quic"], "routeOnly": true},
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {"path": "/ss-freenet?ed=2560"},
+        "sockopt": {
+          "tcpKeepAlive": true,
+          "tcpKeepAliveIdle": 60,
+          "tcpKeepAliveInterval": 15,
+          "tcpKeepAliveProbes": 5,
+          "TCPFastOpen": true,
+          "TCPNoDelay": true
+        }
+      }
     },
     {
       "port": 10004,
       "listen": "0.0.0.0",
       "protocol": "vmess",
-      "settings": {"clients": [{"id": "b2c3d4e5-6789-41af-99bc-def012345678", "alterId": 0, "level": 0}]},
-      "sniffing": {"enabled": true, "destOverride": ["http", "tls"]},
-      "streamSettings": {"network": "ws", "wsSettings": {"path": "/vmess-freenet?ed=2560"}, "sockopt": {"tcpKeepAlive": true, "tcpKeepAliveIdle": 30, "tcpKeepAliveInterval": 15, "tcpKeepAliveProbes": 5}}
+      "settings": {"clients": [{"id": "b2c3d4e5-6789-41af-99bc-def012345678", "alterId": 0, "level": 0}], "security": "auto"},
+      "sniffing": {"enabled": true, "destOverride": ["http", "tls", "quic"], "routeOnly": true},
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {"path": "/vmess-freenet?ed=2560"},
+        "sockopt": {
+          "tcpKeepAlive": true,
+          "tcpKeepAliveIdle": 60,
+          "tcpKeepAliveInterval": 15,
+          "tcpKeepAliveProbes": 5,
+          "TCPFastOpen": true,
+          "TCPNoDelay": true
+        }
+      }
     }
   ],
-  "outbounds": [{"protocol": "freedom", "tag": "direct"}]
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct",
+      "settings": {"domainStrategy": "UseIPv4"}
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "block",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {"type": "field", "ip": ["geoip:private"], "outboundTag": "block"}
+    ]
+  }
 }
