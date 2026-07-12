@@ -1,13 +1,5 @@
 {
   "log": {"loglevel": "warning"},
-  "dns": {
-    "servers": [
-      "8.8.8.8",
-      "8.8.4.4"
-    ],
-    "clientIp": "8.8.8.8",
-    "domainStrategy": "UseIPv4"
-  },
   "inbounds": [
     {
       "port": 10001,
@@ -42,13 +34,5 @@
       "streamSettings": {"network": "ws", "wsSettings": {"path": "/vmess-freenet?ed=2560"}, "sockopt": {"tcpKeepAlive": true, "tcpKeepAliveIdle": 30, "tcpKeepAliveInterval": 15, "tcpKeepAliveProbes": 5}}
     }
   ],
-  "outbounds": [
-    {
-      "protocol": "freedom",
-      "tag": "direct",
-      "settings": {
-        "domainStrategy": "UseIPv4"
-      }
-    }
-  ]
+  "outbounds": [{"protocol": "freedom", "tag": "direct"}]
 }
