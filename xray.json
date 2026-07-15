@@ -17,12 +17,16 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls"],
+        "routeOnly": true
       },
       "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/trojan-freenet?ed=2560"
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "stream-up",
+          "path": "/xhttp-trojan?ed=2560",
+          "host": "*",
+          "keepAlivePeriod": 300
         },
         "sockopt": {
           "tcpKeepAlive": true,
@@ -47,12 +51,15 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls"],
+        "routeOnly": true
       },
       "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/vless-freenet?ed=2560"
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "stream-one",
+          "path": "/xhttp-vless?ed=2560",
+          "host": "*"
         },
         "sockopt": {
           "tcpKeepAlive": true,
@@ -73,12 +80,15 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls"],
+        "routeOnly": true
       },
       "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/ss-freenet?ed=2560"
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "packet-up",
+          "path": "/xhttp-ss?ed=2560",
+          "host": "*"
         },
         "sockopt": {
           "tcpKeepAlive": true,
@@ -103,12 +113,16 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls"],
+        "routeOnly": true
       },
       "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/vmess-freenet?ed=2560"
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "stream-up",
+          "path": "/xhttp-vmess?ed=2560",
+          "host": "*",
+          "keepAlivePeriod": 300
         },
         "sockopt": {
           "tcpKeepAlive": true,
