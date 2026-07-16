@@ -5,7 +5,7 @@
   "inbounds": [
     {
       "port": 10001,
-      "listen": "0.0.0.0",
+      "listen": "127.0.0.1",
       "protocol": "trojan",
       "settings": {
         "clients": [
@@ -17,24 +17,30 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/trojan-freenet?ed=2560"
+          "path": "/trojan-freenet?ed=2560",
+          "acceptForwardedFor": ["127.0.0.1"]
         },
         "sockopt": {
+          "tcpNoDelay": true,
           "tcpKeepAlive": true,
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15,
-          "tcpKeepAliveProbes": 5
+          "tcpKeepAliveProbes": 5,
+          "mark": 255,
+          "tcpFastOpen": true,
+          "tcpFastOpenQueueLength": 1024
         }
       }
     },
     {
       "port": 10002,
-      "listen": "0.0.0.0",
+      "listen": "127.0.0.1",
       "protocol": "vless",
       "settings": {
         "clients": [
@@ -47,24 +53,29 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/vless-freenet?ed=2560"
+          "path": "/vless-freenet?ed=2560",
+          "acceptForwardedFor": ["127.0.0.1"]
         },
         "sockopt": {
+          "tcpNoDelay": true,
           "tcpKeepAlive": true,
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15,
-          "tcpKeepAliveProbes": 5
+          "tcpKeepAliveProbes": 5,
+          "tcpFastOpen": true,
+          "tcpFastOpenQueueLength": 1024
         }
       }
     },
     {
       "port": 10003,
-      "listen": "0.0.0.0",
+      "listen": "127.0.0.1",
       "protocol": "shadowsocks",
       "settings": {
         "method": "chacha20-ietf-poly1305",
@@ -73,24 +84,29 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/ss-freenet?ed=2560"
+          "path": "/ss-freenet?ed=2560",
+          "acceptForwardedFor": ["127.0.0.1"]
         },
         "sockopt": {
+          "tcpNoDelay": true,
           "tcpKeepAlive": true,
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15,
-          "tcpKeepAliveProbes": 5
+          "tcpKeepAliveProbes": 5,
+          "tcpFastOpen": true,
+          "tcpFastOpenQueueLength": 1024
         }
       }
     },
     {
       "port": 10004,
-      "listen": "0.0.0.0",
+      "listen": "127.0.0.1",
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -99,22 +115,28 @@
             "alterId": 0,
             "level": 0
           }
-        ]
+        ],
+        "disableInsecure": true
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"]
+        "destOverride": ["http", "tls", "quic"],
+        "routeOnly": true
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/vmess-freenet?ed=2560"
+          "path": "/vmess-freenet?ed=2560",
+          "acceptForwardedFor": ["127.0.0.1"]
         },
         "sockopt": {
+          "tcpNoDelay": true,
           "tcpKeepAlive": true,
           "tcpKeepAliveIdle": 30,
           "tcpKeepAliveInterval": 15,
-          "tcpKeepAliveProbes": 5
+          "tcpKeepAliveProbes": 5,
+          "tcpFastOpen": true,
+          "tcpFastOpenQueueLength": 1024
         }
       }
     }
@@ -122,7 +144,23 @@
   "outbounds": [
     {
       "protocol": "freedom",
-      "tag": "direct"
+      "tag": "direct",
+      "settings": {
+        "domainStrategy": "UseIPv4",
+        "tcpKeepAliveInterval": 15,
+        "tcpKeepAliveIdle": 30
+      }
     }
-  ]
+  ],
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 2,
+        "connIdle": 300,
+        "uplinkOnly": 0,
+        "downlinkOnly": 0,
+        "bufferSize": 1048576
+      }
+    }
+  }
 }
