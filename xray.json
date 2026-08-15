@@ -22,7 +22,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/trojan-freenet?ed=2560"
+          "path": "/trojan-freenet"
         },
         "sockopt": {
           "tcpKeepAlive": true,
@@ -52,7 +52,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/vless-freenet?ed=2560"
+          "path": "/vless-freenet"
         },
         "sockopt": {
           "tcpKeepAlive": true,
