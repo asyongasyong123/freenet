@@ -78,7 +78,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/ss-freenet?ed=2560"
+          "path": "/ss-freenet"
         },
         "sockopt": {
           "tcpKeepAlive": true,
@@ -108,7 +108,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/vmess-freenet?ed=2560"
+          "path": "/vmess-freenet"
         },
         "sockopt": {
           "tcpKeepAlive": true,
