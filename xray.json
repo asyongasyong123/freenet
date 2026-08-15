@@ -16,7 +16,7 @@
         ]
       },
       "sniffing": {
-        "enabled": true,
+        "enabled": false,
         "destOverride": ["http", "tls"]
       },
       "streamSettings": {
@@ -46,7 +46,7 @@
         "decryption": "none"
       },
       "sniffing": {
-        "enabled": true,
+        "enabled": false,
         "destOverride": ["http", "tls"]
       },
       "streamSettings": {
